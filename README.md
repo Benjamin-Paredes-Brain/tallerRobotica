@@ -175,12 +175,14 @@ El movimiento por voz **es relativo a la posición guardada**; dos órdenes cons
 | Codo | 0° | 130° | 0° |
 | Pinza | 130° | 180° | 130° |
 
-En la configuración actual de la **pinza invertida**:
+En la configuración actual, la pinza abre a 180° y cierra a 130°:
 
 ```cpp
 const int gripperOpenAngle = 180;
 const int gripperClosedAngle = 130;
 ```
+
+También se aceptan «brazo abrir» y «brazo cerrar» como alias de los comandos de pinza.
 
 Los sentidos de base, hombro y codo se adaptan mediante `invertBase`, `invertShoulder` e `invertElbow`. Si una dirección se mueve al revés de lo esperado, revisar la inversión del eje correspondiente **después de verificar la mecánica**.
 

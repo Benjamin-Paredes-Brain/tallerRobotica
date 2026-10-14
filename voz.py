@@ -19,6 +19,11 @@ DURACION = 3
 
 recognizer = sr.Recognizer()
 
+PALABRAS_ABRIR = {"abrir", "abre", "abri"}
+PALABRAS_CERRAR = {"cerrar", "cierra", "cerra"}
+PALABRAS_ARRIBA = {"arriba", "subir", "sube", "subi"}
+PALABRAS_ABAJO = {"abajo", "bajar", "baja"}
+
 
 # ==========================================
 # NORMALIZAR TEXTO
@@ -92,53 +97,28 @@ def detectar_comando(texto):
 
     palabras = set(texto.split())
 
-    # PINZA
-
-    if "pinza" in palabras:
-
-        if palabras & {"abrir", "abre", "abri"}:
+    if palabras & {"pinza", "brazo"}:
+        if palabras & PALABRAS_CERRAR:
+            return "PINZA,CERRAR"
+        if palabras & PALABRAS_ABRIR:
             return "PINZA,ABRIR"
 
-        if palabras & {"cerrar", "cierra", "cerra"}:
-            return "PINZA,CERRAR"
-
         return None
-
-    # BASE
 
     if "base" in palabras:
-
         if "izquierda" in palabras:
             return "BASE,IZQUIERDA"
-
         if "derecha" in palabras:
             return "BASE,DERECHA"
-
         return None
 
-    # HOMBRO
-
-    if "hombro" in palabras:
-
-        if palabras & {"arriba", "subir", "sube", "subi"}:
-            return "HOMBRO,ARRIBA"
-
-        if palabras & {"abajo", "bajar", "baja"}:
-            return "HOMBRO,ABAJO"
-
-        return None
-
-    # CODO
-
-    if "codo" in palabras:
-
-        if palabras & {"arriba", "subir", "sube", "subi"}:
-            return "CODO,ARRIBA"
-
-        if palabras & {"abajo", "bajar", "baja"}:
-            return "CODO,ABAJO"
-
-        return None
+    for articulacion in ("HOMBRO", "CODO"):
+        if articulacion.lower() in palabras:
+            if palabras & PALABRAS_ARRIBA:
+                return f"{articulacion},ARRIBA"
+            if palabras & PALABRAS_ABAJO:
+                return f"{articulacion},ABAJO"
+            return None
 
     return None
 

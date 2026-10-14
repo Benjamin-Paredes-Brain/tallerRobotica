@@ -64,10 +64,8 @@ const int minGripperAngle = 130;
 const int maxGripperAngle = 180;
 
 // ==========================================
-// PINZA (CORREGIDA)
+// PINZA
 // ==========================================
-
-// Ahora está invertida respecto al código anterior
 
 const int gripperOpenAngle = 180;
 const int gripperClosedAngle = 130;
@@ -80,8 +78,7 @@ int baseAngle = (minBaseAngle + maxBaseAngle) / 2;
 int shoulderAngle = minShoulderAngle;
 int elbowAngle = minElbowAngle;
 
-// Mantener el ángulo inicial del código original
-int gripperAngle = minGripperAngle;
+int gripperAngle = gripperClosedAngle;
 
 unsigned long lastMovement = 0;
 bool servosAttached = false;
@@ -258,7 +255,7 @@ void processCommand(String command) {
     );
   }
 
-  // PINZA (CORREGIDA)
+  // PINZA
 
   else if (command == "PINZA,ABRIR") {
 
